@@ -42,6 +42,4 @@ We welcome contributions! Feel free to submit issues or pull requests to enhance
 
 This project is licensed under the [MIT License](LICENSE) (or specify your preferred license).
 
----
-
-This version keeps the README informative and professional while omitting sensitive details like specific API keys, URLs, or credentials. It’s suitable for a public repository and provides enough context for others to understand and potentially contribute to the project. Let me know if you'd like further adjustments!
+The main repository is private.
