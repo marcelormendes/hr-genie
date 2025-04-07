@@ -1,0 +1,93 @@
+---
+const currentYear = new Date().getFullYear();
+
+interface FooterLink {
+  href: string;
+  label: string;
+  isExternal?: boolean;
+}
+
+const navLinks: FooterLink[] = [
+  { href: "/", label: "Home" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "#about", label: "About Us" },
+  { href: "/careers", label: "Careers" },
+  { href: "/signin", label: "Sign In" },
+];
+
+const contactLinks: FooterLink[] = [
+  { href: "mailto:support@hrgenie.com", label: "Email: support@hrgenie.com", isExternal: true },
+  { href: "https://twitter.com/hrgenie", label: "Twitter: @hrgenie", isExternal: true },
+  { href: "https://linkedin.com/company/hrgenie", label: "LinkedIn: /hrgenie", isExternal: true },
+];
+
+const legalLinks: FooterLink[] = [
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/terms", label: "Terms of Service" },
+];
+---
+
+<footer class="bg-[#121212] text-white py-10">
+  <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
+    <div>
+      <h3 class="text-lg font-semibold mb-4">Navigation</h3>
+      <ul class="space-y-2">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a 
+                href={link.href} 
+                class="text-gray-400 hover:text-[#00d4ff] transition-colors"
+                target={link.isExternal ? "_blank" : undefined}
+                rel={link.isExternal ? "noopener noreferrer" : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-lg font-semibold mb-4">Contact</h3>
+      <ul class="space-y-2">
+        {
+          contactLinks.map((link) => (
+            <li>
+              <a 
+                href={link.href} 
+                class="text-gray-400 hover:text-[#00d4ff] transition-colors"
+                target={link.isExternal ? "_blank" : undefined}
+                rel={link.isExternal ? "noopener noreferrer" : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-lg font-semibold mb-4">Legal</h3>
+      <ul class="space-y-2">
+        {
+          legalLinks.map((link) => (
+            <li>
+              <a 
+                href={link.href} 
+                class="text-gray-400 hover:text-[#00d4ff] transition-colors"
+                target={link.isExternal ? "_blank" : undefined}
+                rel={link.isExternal ? "noopener noreferrer" : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+  <div class="container mx-auto px-4 pt-8 mt-8 border-t border-[rgba(255,255,255,0.1)] text-center text-gray-400">
+    <p>© {currentYear} HR Genie. All rights reserved.</p>
+  </div>
+</footer> 

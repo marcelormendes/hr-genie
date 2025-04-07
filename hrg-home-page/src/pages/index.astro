@@ -1,0 +1,475 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+// Feature icons
+const featureIcons = {
+  resume: `<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 24 24" fill="none">
+    <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M16 13H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M16 17H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M10 9H9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <defs>
+      <linearGradient id="paint0_linear_resume" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#4F46E5"/>
+        <stop offset="1" stop-color="#06B6D4"/>
+      </linearGradient>
+    </defs>
+    <style>
+      svg { filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.1)); }
+      path { stroke: url(#paint0_linear_resume); }
+    </style>
+  </svg>`,
+  matching: `<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 24 24" fill="none">
+    <path d="M4 15C4 15 5 14 8 14C11 14 13 16 16 16C19 16 20 15 20 15V3C20 3 19 4 16 4C13 4 11 2 8 2C5 2 4 3 4 3V15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M4 22V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <defs>
+      <linearGradient id="paint0_linear_matching" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#EC4899"/>
+        <stop offset="1" stop-color="#8B5CF6"/>
+      </linearGradient>
+    </defs>
+    <style>
+      svg { filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.1)); }
+      path { stroke: url(#paint0_linear_matching); }
+    </style>
+  </svg>`,
+  slack: `<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 24 24" fill="none">
+    <path d="M14.5 10C14.5 9.17157 15.1716 8.5 16 8.5H19C19.8284 8.5 20.5 9.17157 20.5 10C20.5 10.8284 19.8284 11.5 19 11.5H16C15.1716 11.5 14.5 10.8284 14.5 10Z" stroke="currentColor" stroke-width="2"/>
+    <path d="M3.5 10C3.5 9.17157 4.17157 8.5 5 8.5H8C8.82843 8.5 9.5 9.17157 9.5 10C9.5 10.8284 8.82843 11.5 8 11.5H5C4.17157 11.5 3.5 10.8284 3.5 10Z" stroke="currentColor" stroke-width="2"/>
+    <path d="M14 5.5C14 4.67157 14.6716 4 15.5 4C16.3284 4 17 4.67157 17 5.5V8.5C17 9.32843 16.3284 10 15.5 10C14.6716 10 14 9.32843 14 8.5V5.5Z" stroke="currentColor" stroke-width="2"/>
+    <path d="M7 15.5C7 14.6716 7.67157 14 8.5 14C9.32843 14 10 14.6716 10 15.5V18.5C10 19.3284 9.32843 20 8.5 20C7.67157 20 7 19.3284 7 18.5V15.5Z" stroke="currentColor" stroke-width="2"/>
+    <path d="M14 15.5C14 14.6716 14.6716 14 15.5 14H18.5C19.3284 14 20 14.6716 20 15.5C20 16.3284 19.3284 17 18.5 17H15.5C14.6716 17 14 16.3284 14 15.5Z" stroke="currentColor" stroke-width="2"/>
+    <path d="M4 15.5C4 14.6716 4.67157 14 5.5 14H8.5C9.32843 14 10 14.6716 10 15.5C10 16.3284 9.32843 17 8.5 17H5.5C4.67157 17 4 16.3284 4 15.5Z" stroke="currentColor" stroke-width="2"/>
+    <path d="M14 19.5C14 18.6716 14.6716 18 15.5 18C16.3284 18 17 18.6716 17 19.5C17 20.3284 16.3284 21 15.5 21C14.6716 21 14 20.3284 14 19.5Z" stroke="currentColor" stroke-width="2"/>
+    <path d="M7 5.5C7 4.67157 7.67157 4 8.5 4C9.32843 4 10 4.67157 10 5.5C10 6.32843 9.32843 7 8.5 7C7.67157 7 7 6.32843 7 5.5Z" stroke="currentColor" stroke-width="2"/>
+    <defs>
+      <linearGradient id="paint0_linear_slack" x1="4" y1="4" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#10B981"/>
+        <stop offset="1" stop-color="#3B82F6"/>
+      </linearGradient>
+    </defs>
+    <style>
+      svg { filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.1)); }
+      path { stroke: url(#paint0_linear_slack); }
+    </style>
+  </svg>`,
+};
+
+// Feature data
+const features = [
+  {
+    title: "Smart Resume Fetching",
+    description: "Pull resumes from Google Drive with a single Slack command.",
+    icon: featureIcons.resume,
+  },
+  {
+    title: "Candidate Matching",
+    description: "AI ranks resumes against job descriptions instantly.",
+    icon: featureIcons.matching,
+  },
+  {
+    title: "Slack Integration",
+    description: "Control your HR workflows directly from Slack.",
+    icon: featureIcons.slack,
+  },
+];
+---
+
+<MainLayout title="Home">
+  <!-- Hero Section -->
+  <section class="py-20 bg-[#0b0b0b]">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Automate Your HR with AI-Powered Tools
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-400 mb-10 max-w-3xl mx-auto">
+        Streamline hiring with Google Drive, Wellfound, and Slack integration.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="/register">
+          <Button
+            variant="default"
+            size="lg"
+            className="bg-[#00d4ff] hover:bg-[#00d4ff]/90 text-black text-md px-6"
+            >Get Started</Button
+          >
+        </a>
+        <a href="#features">
+          <Button
+            variant="outline"
+            size="lg"
+            className="border-[#333] bg-transparent text-white hover:bg-[#222] text-md px-6"
+            >Learn More</Button
+          >
+        </a>
+      </div>
+
+      <div class="mt-16">
+        <div class="max-w-4xl mx-auto rounded-lg overflow-hidden shadow-xl">
+          <img
+            src="/hero-image.svg"
+            alt="HR Genie Dashboard Preview"
+            class="w-full"
+            width="1200"
+            height="750"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-20 bg-[#181818]">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-16 text-white">
+        Key Features
+      </h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        {
+          features.map((feature) => (
+            <Card className="bg-[#181818] border-[#333] text-white">
+              <CardHeader>
+                <div class="mb-4 w-12 h-12 rounded-lg bg-[#00d4ff10] flex items-center justify-center text-[#00d4ff]">
+                  <Fragment set:html={feature.icon} />
+                </div>
+                <CardTitle>{feature.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p class="text-gray-400">{feature.description}</p>
+              </CardContent>
+            </Card>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="py-20 bg-[#0b0b0b]">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-16 text-white">
+        Simple, Transparent Pricing
+      </h2>
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <Card className="bg-[#121212] border-[#333] text-white">
+          <CardHeader>
+            <CardTitle>Free</CardTitle>
+            <CardDescription>
+              <span
+                class="text-3xl font-bold bg-gradient-to-r from-[#10B981] to-[#3B82F6] bg-clip-text text-transparent"
+                >$0</span
+              >
+              <span class="text-gray-400">/month</span>
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ul class="space-y-2 text-left mb-6">
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 mr-2 text-[#00d4ff]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"></path></svg
+                >
+                <span>Up to 10 resumes/month</span>
+              </li>
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 mr-2 text-[#00d4ff]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"></path></svg
+                >
+                <span>Basic resume matching</span>
+              </li>
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 mr-2 text-[#00d4ff]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"></path></svg
+                >
+                <span>Email support</span>
+              </li>
+            </ul>
+          </CardContent>
+          <CardFooter>
+            <a href="/signup" class="w-full">
+              <Button
+                variant="outline"
+                className="w-full border-[#333] bg-transparent text-white hover:bg-[#222]"
+                >Sign Up Free</Button
+              >
+            </a>
+          </CardFooter>
+        </Card>
+
+        <Card className="bg-[#121212] border-[#00d4ff] text-white">
+          <CardHeader>
+            <div
+              class="bg-[#00d4ff] text-black text-xs rounded-full px-3 py-1 inline-block mb-2"
+            >
+              POPULAR
+            </div>
+            <CardTitle>Pro</CardTitle>
+            <CardDescription>
+              <span
+                class="text-3xl font-bold bg-gradient-to-r from-[#10B981] to-[#3B82F6] bg-clip-text text-transparent"
+                >$29</span
+              >
+              <span class="text-gray-400">/month</span>
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ul class="space-y-2 text-left mb-6">
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 mr-2 text-[#00d4ff]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"></path></svg
+                >
+                <span>Up to 100 resumes/month</span>
+              </li>
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 mr-2 text-[#00d4ff]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"></path></svg
+                >
+                <span>Advanced AI matching</span>
+              </li>
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 mr-2 text-[#00d4ff]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"></path></svg
+                >
+                <span>Slack integration</span>
+              </li>
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 mr-2 text-[#00d4ff]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"></path></svg
+                >
+                <span>Priority support</span>
+              </li>
+            </ul>
+          </CardContent>
+          <CardFooter>
+            <a href="/signup" class="w-full">
+              <Button
+                className="w-full bg-[#00d4ff] hover:bg-[#00d4ff]/90 text-black"
+                >Start Free Trial</Button
+              >
+            </a>
+          </CardFooter>
+        </Card>
+
+        <Card className="bg-[#121212] border-[#333] text-white">
+          <CardHeader>
+            <CardTitle>Enterprise</CardTitle>
+            <CardDescription>
+              <span
+                class="text-3xl font-bold bg-gradient-to-r from-[#10B981] to-[#3B82F6] bg-clip-text text-transparent"
+                >Custom</span
+              >
+              <span class="text-gray-400"></span>
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ul class="space-y-2 text-left mb-6">
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 mr-2 text-[#00d4ff]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"></path></svg
+                >
+                <span>Unlimited resumes</span>
+              </li>
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 mr-2 text-[#00d4ff]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"></path></svg
+                >
+                <span>Custom integrations</span>
+              </li>
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 mr-2 text-[#00d4ff]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"></path></svg
+                >
+                <span>Dedicated support</span>
+              </li>
+              <li class="flex items-center">
+                <svg
+                  class="w-5 h-5 mr-2 text-[#00d4ff]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"></path></svg
+                >
+                <span>On-premises option</span>
+              </li>
+            </ul>
+          </CardContent>
+          <CardFooter>
+            <a href="/contact" class="w-full">
+              <Button
+                variant="outline"
+                className="w-full border-[#333] bg-transparent text-white hover:bg-[#222]"
+                >Contact Sales</Button
+              >
+            </a>
+          </CardFooter>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 bg-[#181818]">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2">
+          <h2 class="text-3xl font-bold mb-6 text-white">Our Mission</h2>
+          <p class="text-gray-400 text-lg mb-6">
+            We're here to simplify HR with AI and integrations, helping
+            companies hire smarter and faster.
+          </p>
+          <p class="text-gray-400 text-lg mb-8">
+            Our team of HR experts and engineers have built HR Genie to solve
+            the most common challenges in the hiring process, from resume
+            screening to candidate matching and communication.
+          </p>
+          <a href="#" class="text-[#00d4ff] hover:underline font-medium"
+            >Learn more about us →</a
+          >
+        </div>
+        <div class="md:w-1/2">
+          <img
+            src="/images/our_mission.png"
+            alt="HR Genie Team"
+            class="rounded-lg shadow-lg"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="cta" class="py-20 relative">
+    <div class="absolute inset-0 z-0">
+      <img
+        src="/images/background.png"
+        alt="Technology Background"
+        class="w-full h-full object-cover object-center"
+      />
+      <div class="absolute inset-0 bg-blue-900/70"></div>
+    </div>
+    <div
+      class="container mx-auto px-4 text-center relative z-10 text-white py-10 md:py-16"
+    >
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+        Ready to Automate Your HR?
+      </h2>
+      <p class="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+        Sign up today and start streamlining your hiring process.
+      </p>
+      <a href="/signup">
+        <Button
+          variant="default"
+          size="lg"
+          className="bg-[#00d4ff] hover:bg-[#00d4ff]/90 text-black text-md px-8 py-3"
+          >Sign Up Now</Button
+        >
+      </a>
+    </div>
+  </section>
+</MainLayout>

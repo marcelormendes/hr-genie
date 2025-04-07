@@ -1,0 +1,144 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="About Us" description="Learn more about the team behind HR Genie">
+  <section class="py-16 md:py-24">
+    <div class="container mx-auto px-4">
+      <!-- Hero Section -->
+      <div class="max-w-4xl mx-auto text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Our Story</h1>
+        <p class="text-xl text-gray-600">
+          We're on a mission to revolutionize HR processes with AI and integrations, making hiring smarter and more efficient.
+        </p>
+      </div>
+
+      <!-- Company Mission -->
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+        <div>
+          <h2 class="text-3xl font-bold mb-6">Our Mission</h2>
+          <p class="text-gray-600 mb-4">
+            HR Genie was born out of a frustration with traditional hiring processes. Our founders experienced firsthand how manual resume screening, candidate matching, and communication could drain resources and slow down hiring.
+          </p>
+          <p class="text-gray-600 mb-4">
+            We believe that AI has the potential to transform these labor-intensive processes, freeing up HR professionals to focus on what really matters: building meaningful relationships with candidates and making the best hiring decisions.
+          </p>
+          <p class="text-gray-600">
+            Our mission is simple: to create AI-powered tools that make HR processes more efficient, accurate, and accessible for companies of all sizes.
+          </p>
+        </div>
+        <div class="rounded-lg overflow-hidden shadow-xl">
+          <img src="/team.svg" alt="HR Genie Team Meeting" class="w-full h-auto" />
+        </div>
+      </div>
+
+      <!-- Core Values -->
+      <div class="mb-20">
+        <h2 class="text-3xl font-bold text-center mb-12">Our Core Values</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-100">
+            <div class="bg-blue-100 text-blue-600 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-center mb-4">Innovation</h3>
+            <p class="text-gray-600 text-center">
+              We're constantly pushing the boundaries of what's possible with AI in HR, looking for new ways to automate and enhance processes.
+            </p>
+          </div>
+
+          <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-100">
+            <div class="bg-blue-100 text-blue-600 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-center mb-4">Security</h3>
+            <p class="text-gray-600 text-center">
+              We take data security seriously, implementing best practices to ensure your company and candidate information remains protected.
+            </p>
+          </div>
+
+          <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-100">
+            <div class="bg-blue-100 text-blue-600 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-center mb-4">Accessibility</h3>
+            <p class="text-gray-600 text-center">
+              We believe that advanced HR tools should be accessible to companies of all sizes, not just enterprises with large budgets.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Section -->
+      <div class="mb-20">
+        <h2 class="text-3xl font-bold text-center mb-12">Meet Our Team</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Team Member 1 -->
+          <div class="bg-white rounded-lg overflow-hidden shadow-lg border border-gray-100">
+            <div class="h-64 bg-gray-200 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">Sarah Johnson</h3>
+              <p class="text-blue-600 mb-4">CEO & Co-Founder</p>
+              <p class="text-gray-600">
+                Former HR Director with 15+ years of experience in talent acquisition and HR technology.
+              </p>
+            </div>
+          </div>
+
+          <!-- Team Member 2 -->
+          <div class="bg-white rounded-lg overflow-hidden shadow-lg border border-gray-100">
+            <div class="h-64 bg-gray-200 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">Michael Chen</h3>
+              <p class="text-blue-600 mb-4">CTO & Co-Founder</p>
+              <p class="text-gray-600">
+                AI specialist with a background in natural language processing and machine learning.
+              </p>
+            </div>
+          </div>
+
+          <!-- Team Member 3 -->
+          <div class="bg-white rounded-lg overflow-hidden shadow-lg border border-gray-100">
+            <div class="h-64 bg-gray-200 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">Emily Rodriguez</h3>
+              <p class="text-blue-600 mb-4">Head of Product</p>
+              <p class="text-gray-600">
+                Product visionary with experience designing user-friendly SaaS platforms for HR professionals.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Join Us Section -->
+      <div class="bg-gray-50 rounded-xl p-10 text-center">
+        <h2 class="text-3xl font-bold mb-6">Join Our Team</h2>
+        <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
+          We're always looking for talented individuals who are passionate about HR technology and AI.
+          If you're interested in joining our mission, check out our current openings.
+        </p>
+        <a href="/careers" class="inline-block py-3 px-8 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium transition">
+          View Open Positions
+        </a>
+      </div>
+    </div>
+  </section>
+</MainLayout>

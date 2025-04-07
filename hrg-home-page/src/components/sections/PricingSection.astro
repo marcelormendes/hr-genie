@@ -1,0 +1,76 @@
+---
+import PricingCard from "./PricingCard.astro";
+
+interface PricingFeature {
+  text: string;
+}
+
+interface PricingPlan {
+  name: string;
+  price: string;
+  features: { text: string }[];
+  popular?: boolean;
+  ctaText?: string;
+}
+
+interface Props {
+  title?: string;
+  plans?: PricingPlan[];
+}
+
+const defaultPlans = [
+  {
+    name: "Starter",
+    price: "$0",
+    features: [
+      { text: "1 company DB" },
+      { text: "100 Slack commands" },
+      { text: "Basic OAuth" },
+    ],
+    ctaText: "Sign Up Free",
+  },
+  {
+    name: "Growth",
+    price: "$10",
+    features: [
+      { text: "5 company DBs" },
+      { text: "500 Slack commands" },
+      { text: "Full OAuth integration" },
+    ],
+    ctaText: "Get Started",
+  },
+  {
+    name: "Enterprise",
+    price: "$25",
+    features: [
+      { text: "Unlimited company DBs" },
+      { text: "Unlimited Slack commands" },
+      { text: "Priority support" },
+    ],
+    popular: true,
+    ctaText: "Get Started",
+  },
+];
+
+const { title = "Pricing Plans", plans = defaultPlans } = Astro.props;
+---
+
+<section id="pricing" class="py-20 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-16">{title}</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      {
+        plans.map((plan) => (
+          <PricingCard
+            name={plan.name}
+            price={plan.price}
+            features={plan.features}
+            popular={plan.popular}
+            ctaText={plan.ctaText}
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>
+

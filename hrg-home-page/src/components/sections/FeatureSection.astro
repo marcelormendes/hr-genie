@@ -1,0 +1,33 @@
+---
+import Card from '../ui/Card.astro';
+
+interface Feature {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface Props {
+  title: string;
+  features: Feature[];
+}
+
+const { title, features } = Astro.props;
+---
+
+<section id="features" class="py-20">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-16">{title}</h2>
+    <div class="grid md:grid-cols-3 gap-10">
+      {features.map((feature) => (
+        <div class="text-center">
+          <div class="bg-primary-100 inline-block p-4 rounded-full mb-6">
+            <span class="text-primary-600" set:html={feature.icon} />
+          </div>
+          <h3 class="text-xl font-semibold mb-4">{feature.title}</h3>
+          <p class="text-gray-600">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section> 

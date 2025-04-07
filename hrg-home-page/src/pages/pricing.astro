@@ -1,0 +1,184 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Pricing" description="Choose the right HR Genie plan for your business">
+  <section class="py-16 md:py-24">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Simple, Transparent Pricing</h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Choose the plan that's right for your business, with no hidden fees or long-term contracts.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <!-- Free Tier -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100 transition-all hover:shadow-xl">
+          <div class="p-8">
+            <h3 class="text-2xl font-bold mb-4">Starter</h3>
+            <div class="text-4xl font-bold mb-6">$0<span class="text-xl text-gray-500">/month</span></div>
+            <p class="text-gray-600 mb-8">Perfect for small companies just getting started with AI-powered HR.</p>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                1 company database
+              </li>
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Up to 100 Slack commands/month
+              </li>
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Basic OAuth integrations
+              </li>
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Community support
+              </li>
+              <li class="flex items-center text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+                Advanced AI matching
+              </li>
+            </ul>
+            <a href="/register" class="block text-center py-3 px-6 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md font-medium transition">Sign Up Free</a>
+          </div>
+        </div>
+        
+        <!-- Basic Tier -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100 transition-all hover:shadow-xl">
+          <div class="p-8">
+            <h3 class="text-2xl font-bold mb-4">Growth</h3>
+            <div class="text-4xl font-bold mb-6">$10<span class="text-xl text-gray-500">/month</span></div>
+            <p class="text-gray-600 mb-8">For growing teams that need more advanced HR automation features.</p>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Up to 5 company databases
+              </li>
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Up to 500 Slack commands/month
+              </li>
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Full OAuth integrations
+              </li>
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Email support
+              </li>
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Basic AI matching
+              </li>
+            </ul>
+            <a href="/register" class="block text-center py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium transition">Get Started</a>
+          </div>
+        </div>
+        
+        <!-- Pro Tier -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden border-2 border-blue-600 relative transition-all hover:shadow-xl">
+          <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 transform translate-x-2 -translate-y-1 rotate-45">
+            Popular
+          </div>
+          <div class="p-8">
+            <h3 class="text-2xl font-bold mb-4">Enterprise</h3>
+            <div class="text-4xl font-bold mb-6">$25<span class="text-xl text-gray-500">/month</span></div>
+            <p class="text-gray-600 mb-8">For larger organizations with advanced HR automation needs.</p>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Unlimited company databases
+              </li>
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Unlimited Slack commands
+              </li>
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Priority phone & email support
+              </li>
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Advanced AI matching
+              </li>
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Custom integrations
+              </li>
+            </ul>
+            <a href="/register" class="block text-center py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium transition">Get Started</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="mt-20">
+        <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+        <div class="max-w-4xl mx-auto divide-y">
+          <div class="py-6">
+            <h3 class="text-xl font-semibold mb-3">Can I switch plans anytime?</h3>
+            <p class="text-gray-600">Yes, you can upgrade, downgrade, or cancel your subscription at any time. Changes take effect at your next billing cycle.</p>
+          </div>
+          <div class="py-6">
+            <h3 class="text-xl font-semibold mb-3">What happens when I reach my Slack command limit?</h3>
+            <p class="text-gray-600">When you reach your monthly Slack command limit, the bot will continue to function but will notify you that you've reached your limit. You can upgrade your plan to increase this limit.</p>
+          </div>
+          <div class="py-6">
+            <h3 class="text-xl font-semibold mb-3">Do you offer discounts for non-profits or educational institutions?</h3>
+            <p class="text-gray-600">Yes! We offer special pricing for non-profits and educational institutions. Please contact our sales team for more information.</p>
+          </div>
+          <div class="py-6">
+            <h3 class="text-xl font-semibold mb-3">What kind of support do you offer?</h3>
+            <p class="text-gray-600">Support varies by plan, from community-based support for free users to priority phone and email support for Enterprise customers. All paid plans include email support with varying response times.</p>
+          </div>
+          <div class="py-6">
+            <h3 class="text-xl font-semibold mb-3">Is there a free trial for paid plans?</h3>
+            <p class="text-gray-600">Yes, all paid plans include a 14-day free trial. No credit card required to start your trial.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="mt-20 text-center">
+        <h2 class="text-2xl font-bold mb-6">Ready to transform your HR process?</h2>
+        <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Start with our free plan today, or schedule a demo to see how HR Genie can help your organization.</p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="/register" class="inline-block py-3 px-8 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium transition">Create Free Account</a>
+          <a href="#" class="inline-block py-3 px-8 bg-white border border-blue-600 hover:bg-blue-50 text-blue-600 rounded-md font-medium transition">Schedule a Demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>

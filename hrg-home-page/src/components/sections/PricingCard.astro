@@ -1,0 +1,75 @@
+---
+import Button from "../ui/Button.astro";
+
+interface PricingFeature {
+  text: string;
+}
+
+interface Props {
+  name: string;
+  price: string;
+  period?: string;
+  features: PricingFeature[];
+  ctaText?: string;
+  ctaLink?: string;
+  popular?: boolean;
+  class?: string;
+}
+
+const {
+  name,
+  price,
+  period = "/month",
+  features,
+  ctaText = "Get Started",
+  ctaLink = "/register",
+  popular = false,
+  class: className = "",
+} = Astro.props;
+---
+
+<div
+  class={`bg-slate-900 rounded-lg shadow-lg overflow-hidden ${popular ? "border-2 border-green-400 relative" : ""} ${className}`}
+>
+  {
+    popular && (
+      <div class="absolute top-0 right-0 bg-orange-500 text-white text-xs font-bold px-3 py-1 transform translate-x-2 -translate-y-1 rotate-45">
+        Popular
+      </div>
+    )
+  }
+  <div class="p-8">
+    <h3 class="text-2xl font-bold mb-4 text-slate-50">{name}</h3>
+    <div class="text-4xl font-bold mb-6 text-green-400">
+      {price}<span class="text-xl text-gray-400">{period}</span>
+    </div>
+    <ul class="space-y-3 mb-8">
+      {
+        features.map((feature) => (
+          <li class="flex items-center text-slate-300">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-green-400 mr-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            {feature.text}
+          </li>
+        ))
+      }
+    </ul>
+    <Button
+      href={ctaLink}
+      variant={popular ? "primary" : "secondary"}
+      class="w-full text-center"
+    >
+      {ctaText}
+    </Button>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+---
+import Button from '../ui/Button.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  ctaPrimaryText?: string;
+  ctaPrimaryHref?: string;
+  ctaSecondaryText?: string;
+  ctaSecondaryHref?: string;
+  imageUrl?: string;
+  imageAlt?: string;
+}
+
+const {
+  title,
+  subtitle,
+  ctaPrimaryText = "Get Started",
+  ctaPrimaryHref = "/register",
+  ctaSecondaryText = "Learn More",
+  ctaSecondaryHref = "#features",
+  imageUrl = "/hero-image.svg",
+  imageAlt = "Platform Dashboard",
+} = Astro.props;
+---
+
+<section class="py-20 bg-gradient-to-r from-blue-50 to-indigo-50">
+  <div class="container mx-auto px-4 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold mb-6">{title}</h1>
+    <p class="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto">
+      {subtitle}
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <Button href={ctaPrimaryHref} variant="primary" size="lg">
+        {ctaPrimaryText}
+      </Button>
+      <Button href={ctaSecondaryHref} variant="outline" size="lg">
+        {ctaSecondaryText}
+      </Button>
+    </div>
+    <div class="mt-16">
+      <img 
+        src={imageUrl} 
+        alt={imageAlt} 
+        class="max-w-4xl mx-auto rounded-lg shadow-xl"
+        width="1200"
+        height="750"
+      />
+    </div>
+  </div>
+</section> 
