@@ -1,0 +1,9 @@
+---
+const dashboardUrl =
+  import.meta.env.PUBLIC_DASHBOARD_URL || "http://localhost:4322";
+const loginUrl = `${dashboardUrl.replace(/\/?$/, "")}/login`; // Ensure no double slash
+
+return Astro.redirect(loginUrl, 307); // Use 307 Temporary Redirect
+---
+
+<!-- This page intentionally left blank -->

@@ -1,0 +1,231 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+
+// Get query parameters from Google OAuth redirect
+const email = Astro.url.searchParams.get("email");
+const googleId = Astro.url.searchParams.get("googleId");
+const name = Astro.url.searchParams.get("name") || "";
+
+// Check if we have the required data
+const hasRequiredData = email && googleId;
+
+// Get error from query parameters
+const error = Astro.url.searchParams.get("error");
+
+// Define error messages
+const errorMessages: { [key: string]: string } = {
+  missing_company: "Please enter a company name.",
+  registration_failed: "Registration failed. Please try again.",
+  user_exists: "A user with this email already exists. Please log in instead.",
+};
+---
+
+<MainLayout title="Complete Registration - HR Genie">
+  <div class="container mx-auto px-4 py-12">
+    <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-8">
+      <h1 class="text-2xl font-bold text-center mb-6">
+        Complete Your Registration
+      </h1>
+
+      {
+        !hasRequiredData && !error && (
+          <div
+            class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"
+            role="alert"
+          >
+            <p>
+              Missing required information from Google sign-in. Please try again
+              or use email registration.
+            </p>
+            <div class="mt-4 text-center">
+              <a href="/register" class="text-blue-600 hover:text-blue-800">
+                Return to registration page
+              </a>
+            </div>
+          </div>
+        )
+      }
+
+      {
+        error && (
+          <div
+            class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"
+            role="alert"
+          >
+            <p>
+              {errorMessages[error] ||
+                "An error occurred during registration. Please try again."}
+            </p>
+            <div class="mt-4 text-center">
+              <a
+                href={error === "user_exists" ? "/login" : "/register"}
+                class="text-blue-600 hover:text-blue-800"
+              >
+                {error === "user_exists"
+                  ? "Go to login page"
+                  : "Return to registration page"}
+              </a>
+            </div>
+          </div>
+        )
+      }
+
+      {
+        hasRequiredData && !error && (
+          <div class="space-y-6">
+            <p class="text-center text-gray-600 mb-6">
+              Hi {name}, we just need a bit more information to set up your
+              account.
+            </p>
+
+            <form id="completeRegistrationForm" class="space-y-4">
+              <input type="hidden" id="email" value={email} />
+              <input type="hidden" id="googleId" value={googleId} />
+              <input type="hidden" id="name" value={name} />
+
+              <div>
+                <label
+                  for="companyName"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Company Name
+                </label>
+                <input
+                  type="text"
+                  id="companyName"
+                  name="companyName"
+                  required
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
+                />
+              </div>
+
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="terms"
+                  name="terms"
+                  required
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                />
+                <label for="terms" class="ml-2 block text-sm text-gray-700">
+                  I agree to the{" "}
+                  <a
+                    href="/terms"
+                    class="text-indigo-600 hover:text-indigo-500"
+                  >
+                    Terms of Service
+                  </a>{" "}
+                  and{" "}
+                  <a
+                    href="/privacy"
+                    class="text-indigo-600 hover:text-indigo-500"
+                  >
+                    Privacy Policy
+                  </a>
+                </label>
+              </div>
+
+              <button
+                type="submit"
+                id="completeButton"
+                class="w-full bg-indigo-600 text-white font-medium py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Complete Registration
+              </button>
+
+              <div
+                id="completeError"
+                class="hidden mt-3 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"
+                role="alert"
+              >
+                <p id="completeErrorText" />
+              </div>
+            </form>
+
+            <p class="mt-8 text-center text-sm text-gray-600">
+              <a
+                href="/register"
+                class="font-medium text-indigo-600 hover:text-indigo-500"
+              >
+                Start over
+              </a>
+            </p>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</MainLayout>
+
+<script is:inline define:vars={{ hasRequiredData }}>
+  if (hasRequiredData) {
+    document
+      .getElementById("completeRegistrationForm")
+      ?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const googleId = document.getElementById("googleId").value;
+        const name = document.getElementById("name").value;
+        const companyName = document.getElementById("companyName").value;
+        const termsAccepted = document.getElementById("terms").checked;
+
+        const completeButton = document.getElementById("completeButton");
+        const completeError = document.getElementById("completeError");
+        const completeErrorText = document.getElementById("completeErrorText");
+
+        if (!completeButton || !completeError || !completeErrorText) return;
+
+        if (!companyName) {
+          completeErrorText.textContent = "Please enter your company name.";
+          completeError.classList.remove("hidden");
+          return;
+        }
+        if (!termsAccepted) {
+          completeErrorText.textContent =
+            "You must accept the Terms of Service and Privacy Policy.";
+          completeError.classList.remove("hidden");
+          return;
+        }
+
+        if (completeButton instanceof HTMLButtonElement) {
+          completeButton.disabled = true;
+          completeButton.textContent = "Completing Registration...";
+        }
+
+        try {
+          const backendUrl =
+            import.meta.env.BACKEND_URL || "http://localhost:3000";
+          const response = await fetch(
+            `${backendUrl}/api/v1/auth/complete-registration`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email, googleId, name, companyName }),
+              credentials: "include",
+            }
+          );
+
+          if (!response.ok) {
+            const errorData = await response
+              .json()
+              .catch(() => ({ message: "Registration failed" }));
+            throw new Error(errorData.message || "Registration failed");
+          }
+
+          window.location.href = "/dashboard";
+        } catch (error) {
+          completeErrorText.textContent =
+            error instanceof Error
+              ? error.message
+              : "Registration failed. Please try again.";
+          completeError.classList.remove("hidden");
+
+          if (completeButton instanceof HTMLButtonElement) {
+            completeButton.disabled = false;
+            completeButton.textContent = "Complete Registration";
+          }
+        }
+      });
+  }
+</script>

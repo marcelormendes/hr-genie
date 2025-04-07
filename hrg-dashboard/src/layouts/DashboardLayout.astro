@@ -1,0 +1,253 @@
+---
+import MainLayout from "./MainLayout.astro";
+
+// Props
+interface Props {
+  title: string;
+  activePage:
+    | "oauth"
+    | "slackbot"
+    | "logs"
+    | "settings"
+    | "profile"
+    | "password";
+}
+
+const { title, activePage } = Astro.props;
+
+// Check if user is authenticated by checking cookie
+const userCookie = Astro.cookies.get("access_token")?.value;
+if (!userCookie) {
+  return Astro.redirect("/login?error=unauthorized");
+}
+
+// Navigation items
+const navItems = [
+  {
+    id: "oauth",
+    label: "OAuth Integrations",
+    href: "/dashboard",
+    icon: `
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+    </svg>
+  `,
+  },
+  {
+    id: "slackbot",
+    label: "Slack Bot",
+    href: "/dashboard/slackbot",
+    icon: `
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+    </svg>
+  `,
+  },
+  {
+    id: "logs",
+    label: "Logs",
+    href: "/dashboard/logs",
+    icon: `
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+    </svg>
+  `,
+  },
+  {
+    id: "settings",
+    label: "Settings",
+    href: "/dashboard/settings",
+    icon: `
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+  `,
+  },
+];
+
+// User data - fetched client-side
+let userData = null;
+---
+
+<MainLayout title={title}>
+  <div class="container mx-auto px-4 py-6">
+    <div class="flex flex-col md:flex-row">
+      <!-- Sidebar -->
+      <div class="w-full md:w-64 mb-6 md:mb-0">
+        <div
+          class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sticky top-20"
+        >
+          <div
+            class="flex items-center space-x-3 mb-6 p-2 border-b border-gray-200 dark:border-gray-700"
+            id="userProfile"
+          >
+            <div
+              class="h-10 w-10 rounded-full bg-indigo-600 dark:bg-indigo-500 flex items-center justify-center text-white font-bold"
+            >
+              <span id="userInitial">U</span>
+            </div>
+            <div class="overflow-hidden">
+              <p
+                class="font-medium truncate text-gray-900 dark:text-gray-100"
+                id="userName"
+              >
+                Loading...
+              </p>
+              <p
+                class="text-xs text-gray-500 dark:text-gray-400 truncate"
+                id="userEmail"
+              >
+              </p>
+            </div>
+          </div>
+
+          <nav class="space-y-1">
+            {
+              navItems.map((item) => (
+                <a
+                  href={item.href}
+                  class={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
+                    activePage === item.id
+                      ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300"
+                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  }`}
+                >
+                  <span
+                    class="mr-3 text-gray-500 dark:text-gray-400"
+                    set:html={item.icon}
+                  />
+                  {item.label}
+                </a>
+              ))
+            }
+          </nav>
+
+          <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <button
+              type="button"
+              id="logout-btn-sidebar"
+              class="flex items-center px-3 py-2 w-full text-left rounded-md text-sm font-medium text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-3"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                ></path>
+              </svg>
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main content -->
+      <div class="flex-1 md:ml-8">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+          <slot />
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+
+<script>
+  // Add event listener for sidebar logout button
+  document
+    .getElementById("logout-btn-sidebar")
+    ?.addEventListener("click", async () => {
+      try {
+        const backendUrl =
+          import.meta.env.BACKEND_URL || "http://localhost:3000";
+        const logoutResponse = await fetch(`${backendUrl}/api/v1/auth/logout`, {
+          method: "POST",
+          credentials: "include",
+        });
+
+        if (logoutResponse.ok) {
+          window.location.href = "/";
+        }
+      } catch (error) {
+        console.error("Sidebar logout failed:", error);
+      }
+    });
+
+  // Fetch user profile data from backend
+  async function fetchUserProfile() {
+    // Get elements and check if they exist
+    const userInitial = document.getElementById("userInitial");
+    const userName = document.getElementById("userName");
+    const userEmail = document.getElementById("userEmail");
+
+    // Exit if essential elements are missing
+    if (!userInitial || !userName || !userEmail) {
+      console.error("Profile elements not found in the DOM");
+      return null;
+    }
+
+    try {
+      const backendUrl = import.meta.env.BACKEND_URL || "http://localhost:3000";
+      // Use the correct API path for getting user info
+      const response = await fetch(`${backendUrl}/api/v1/auth/me`, {
+        method: "GET",
+        credentials: "include", // Important for cookies
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          // Handle authentication error by redirecting to login
+          window.location.href = "/login?error=unauthorized";
+          throw new Error("Unauthorized");
+        } else {
+          throw new Error("Failed to fetch user profile");
+        }
+      }
+
+      const userData = await response.json();
+
+      // Update user profile UI (already checked elements exist)
+      if (userData && userData.email) {
+        if (userData.name) {
+          userInitial.textContent = userData.name.charAt(0).toUpperCase();
+          userName.textContent = userData.name;
+        } else {
+          userInitial.textContent = userData.email.charAt(0).toUpperCase();
+          userName.textContent = "User";
+        }
+        userEmail.textContent = userData.email;
+      } else {
+        // Fallback if user data is incomplete
+        userInitial.textContent = "U";
+        userName.textContent = "User";
+        userEmail.textContent = "";
+      }
+
+      return userData;
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+
+      // Check error type before accessing message
+      if (error instanceof Error && error.message === "Unauthorized") {
+        // Already handled by redirect, maybe log differently or do nothing
+      } else {
+        // General error handling: Update UI to show error state
+        userInitial.textContent = "?";
+        userName.textContent = "Error";
+        userEmail.textContent = "Could not load profile.";
+      }
+
+      return null;
+    }
+  }
+
+  // Call the function when the page loads
+  document.addEventListener("DOMContentLoaded", fetchUserProfile);
+</script>

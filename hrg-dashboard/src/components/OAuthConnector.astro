@@ -1,0 +1,51 @@
+---
+interface Props {
+  service: 'google-drive' | 'wellfound' | 'slack';
+  isConnected: boolean;
+  name: string;
+  description: string;
+}
+
+const { service, isConnected, name, description } = Astro.props;
+
+// Service icons
+const icons = {
+  'google-drive': `
+    <svg class="h-8 w-8 text-blue-500" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4.858 4.88c-.63-.8-1.127-1.28-1.127-1.28l.337 2.08H9.929c2.29 0 4.286 1.28 5.413 3.28l-2.313 4c-.679-1.76-2.536-3.04-4.592-3.04H5.146l-.288-5.04z" fill="#4285F4" />
+      <path d="M15.342 8.88l-5.413 9.36h5.729c2.29 0 4.286-1.28 5.413-3.28l2.313-4-2.313-4c-1.127-2-3.123-3.28-5.413-3.28h-5.729l5.413 5.2z" fill="#34A853" />
+      <path d="M4.069 5.68l-.337-2.08S5.45 4.48 6.079 5.28l5.413 9.36-5.413 9.36c-.63.8-2.337 2.64-2.337 2.64l.337-2.08.288-5.04 2.001-3.28-2.001-3.28-.288-5.04v-2.24z" fill="#FBBC05" />
+      <path d="M9.929 22.4h5.729l-5.413-9.36-5.413-9.36H4.069s1.707 1.84 2.337 2.64l5.413 9.36-5.413 9.36c-.63.8-2.337 2.64-2.337 2.64h.763l5.097-5.28z" fill="#EA4335" />
+    </svg>
+  `,
+  'wellfound': `
+    <svg class="h-8 w-8 text-gray-800" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+      <path d="M9.25 14.25L12 11.5l2.75 2.75.75-.75-3.5-3.5-3.5 3.5z" />
+    </svg>
+  `,
+  'slack': `
+    <svg class="h-8 w-8 text-purple-600" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.687 8.834a2.528 2.528 0 0 1-2.521 2.521 2.527 2.527 0 0 1-2.521-2.521V2.522A2.527 2.527 0 0 1 15.166 0a2.528 2.528 0 0 1 2.521 2.522v6.312zM15.166 18.956a2.528 2.528 0 0 1 2.521 2.522A2.528 2.528 0 0 1 15.166 24a2.527 2.527 0 0 1-2.521-2.522v-2.522h2.521zM15.166 17.687a2.527 2.527 0 0 1-2.521-2.521 2.526 2.526 0 0 1 2.521-2.521h6.313A2.527 2.527 0 0 1 24 15.166a2.528 2.528 0 0 1-2.522 2.521h-6.312z" />
+    </svg>
+  `
+};
+---
+
+<div class="border border-gray-200 rounded-lg p-6">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center">
+      <Fragment set:html={icons[service]} />
+      <h3 class="text-lg font-medium ml-3">{name}</h3>
+    </div>
+    <span class={`px-2 py-1 text-xs rounded-full ${isConnected ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+      {isConnected ? 'Connected' : 'Not connected'}
+    </span>
+  </div>
+  <p class="text-gray-600 text-sm mb-4">
+    {description}
+  </p>
+  <a href={`/api/oauth/${service}`} class={`block w-full text-center py-2 px-4 rounded-md ${isConnected ? 'bg-gray-200 text-gray-800' : 'bg-indigo-600 text-white'}`}>
+    {isConnected ? 'Reconnect' : 'Connect'}
+  </a>
+</div>
